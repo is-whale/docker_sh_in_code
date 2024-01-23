@@ -50,7 +50,7 @@ fi
 if [ $PRE_RELEASE == "on" ]; then
     SUFFIX=$SUFFIX"-rc"
 fi
-
+# 此处修改为等待启动的镜像
 IMAGE=robest_melodic/ros-melodic-full:V1
 
 echo "Launching $IMAGE"
