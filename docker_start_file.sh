@@ -1,7 +1,5 @@
 #!/bin/bash
-
 set -e
-
 # Default settings
 CUDA="on"
 ROS_DISTRO="melodic"
@@ -9,8 +7,6 @@ USER_ID="$(id -u)"
 
 function usage() {
     echo "Usage: $0 [OPTIONS]"
-    echo "    -b,--base-only <AUTOWARE_HOST_DIR> If provided, run the base image only and mount the provided Autoware folder."
-    echo "                                       Default: Use pre-compiled Autoware image"
     echo "    -c,--cuda <on|off>                 Enable Cuda support in the Docker."
     echo "                                       Default: $CUDA"
     echo "    -h,--help                          Display the usage and exit."
@@ -34,18 +30,12 @@ XSOCK=/tmp/.X11-unix
 XAUTH=$HOME/.Xauthority
 
 SHARED_DOCKER_DIR=/home/
+# 此处为本机的目录
 SHARED_HOST_DIR=/home/whale/code/
-
-# AUTOWARE_DOCKER_DIR=/home/autoware/Autoware
 
 VOLUMES="--volume=$XSOCK:$XSOCK:rw
          --volume=$XAUTH:$XAUTH:rw
          --volume=$SHARED_HOST_DIR:$SHARED_DOCKER_DIR:rw"
-
-# if [ "$BASE_ONLY" == "true" ]; then
-#     SUFFIX=$SUFFIX"-base"
-#     VOLUMES="$VOLUMES --volume=$AUTOWARE_HOST_DIR:/home "
-# fi
 
 DOCKER_VERSION=$(docker version --format '{{.Client.Version}}' | cut --delimiter=. --fields=1,2)
 if [ $CUDA == "on" ]; then
@@ -61,10 +51,6 @@ if [ $PRE_RELEASE == "on" ]; then
     SUFFIX=$SUFFIX"-rc"
 fi
 
-# Create the shared directory in advance to ensure it is owned by the host user
-# mkdir -p $SHARED_HOST_DIR
-
-# IMAGE=$IMAGE_NAME:$TAG_PREFIX-$ROS_DISTRO$SUFFIX
 IMAGE=robest_melodic/ros-melodic-full:V1
 
 echo "Launching $IMAGE"
@@ -82,12 +68,6 @@ docker run \
     $RUNTIME \
     $IMAGE
 
-#     -it -rm \ -rm 参数用于在容器退出后自动删除容器
-
-# [perf] judge if or no use cuda. but it is't by test. 
-#!/bin/bash
-
-# set -e
 
 # 默认设置
 # CUDA="off"
