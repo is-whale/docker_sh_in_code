@@ -37,19 +37,19 @@ VOLUMES="--volume=$XSOCK:$XSOCK:rw
          --volume=$XAUTH:$XAUTH:rw
          --volume=$SHARED_HOST_DIR:$SHARED_DOCKER_DIR:rw"
 
-DOCKER_VERSION=$(docker version --format '{{.Client.Version}}' | cut --delimiter=. --fields=1,2)
-if [ $CUDA == "on" ]; then
-    SUFFIX=$SUFFIX"-cuda"
-    if [[ ! $DOCKER_VERSION < "19.03" ]] && ! type nvidia-docker; then
-        RUNTIME="--gpus all"
-    else
-        RUNTIME="--runtime=nvidia"
-    fi
-fi
+# DOCKER_VERSION=$(docker version --format '{{.Client.Version}}' | cut --delimiter=. --fields=1,2)
+# if [ $CUDA == "on" ]; then
+#     SUFFIX=$SUFFIX"-cuda"
+#     if [[ ! $DOCKER_VERSION < "19.03" ]] && ! type nvidia-docker; then
+#         RUNTIME="--gpus all"
+#     else
+#         RUNTIME="--runtime=nvidia"
+#     fi
+# fi
 
-if [ $PRE_RELEASE == "on" ]; then
-    SUFFIX=$SUFFIX"-rc"
-fi
+# if [ $PRE_RELEASE == "on" ]; then
+#     SUFFIX=$SUFFIX"-rc"
+# fi
 # 此处修改为等待启动的镜像
 IMAGE=robest_melodic/ros-melodic-full:V1
 
