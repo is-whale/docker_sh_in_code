@@ -59,6 +59,7 @@ docker run \
     -it --rm\
     -v ~/.ssh:/root/.ssh\
     $VOLUMES \
+    --gpus all \
     --env="XAUTHORITY=${XAUTH}" \
     --env="DISPLAY=${DISPLAY}" \
     --env="USER_ID=$USER_ID" \
