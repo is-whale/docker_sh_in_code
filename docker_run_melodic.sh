@@ -3,6 +3,11 @@
 set -e
 
 # Default settings
+IMAGE_NAME="bestway.com/docker-local/ubuntu/22.04/module-base:v1.4"
+
+SHARED_DOCKER_DIR=/home/
+SHARED_HOST_DIR=/home/whale/code/new_code_416/
+
 CUDA="off"
 ROS_DISTRO="melodic"
 USER_ID="$(id -u)"
@@ -20,8 +25,7 @@ eval set -- "$OPTS"
 XSOCK=/tmp/.X11-unix
 XAUTH=$HOME/.Xauthority
 
-SHARED_DOCKER_DIR=/home/
-SHARED_HOST_DIR=/home/whale/code/
+
 
 # AUTOWARE_DOCKER_DIR=/home/autoware/Autoware
 
@@ -46,8 +50,8 @@ fi
 # Create the shared directory in advance to ensure it is owned by the host user
 # mkdir -p $SHARED_HOST_DIR
 
-# IMAGE=$IMAGE_NAME:$TAG_PREFIX-$ROS_DISTRO$SUFFIX
-IMAGE=ros_melodic_perf:v1.1$SUFFIX
+IMAGE=$IMAGE_NAME$SUFFIX
+# IMAGE=bestway.com/docker-local/ubuntu/22.04/module-base:v1.4$SUFFIX
 # IMAGE=5d1c01ede155$SUFFIX
 
 
